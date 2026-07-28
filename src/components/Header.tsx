@@ -63,11 +63,15 @@ export const Header: React.FC<HeaderProps> = ({
               </p>
             </div>
           </div>
+        </div>
 
-          {/* Mode Badge (Passenger / Captain) */}
+        {/* Right Action Controls: Mode Switcher, Language Switcher & Profile/Login */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          
+          {/* Mode Badge (Passenger / Captain Driver) */}
           <button
             onClick={onToggleAppMode}
-            className={`hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border transition-all ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border transition-all ${
               appMode === 'passenger'
                 ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
                 : 'bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100'
@@ -85,39 +89,6 @@ export const Header: React.FC<HeaderProps> = ({
                 <span>{language === 'bn' ? 'ক্যাপ্টেন ড্রাইভার' : 'Captain Driver'}</span>
               </>
             )}
-          </button>
-        </div>
-
-        {/* Action Controls & Navigation */}
-        <div className="flex items-center gap-2 sm:gap-3">
-          
-          {/* AI Route Advisor Navigation */}
-          <button
-            onClick={onOpenAIGuide}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold hover:bg-emerald-100 transition-all shadow-sm"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-            <span className="hidden sm:inline">
-              {language === 'bn' ? 'ছুটি এআই গাইড' : 'AI Route Guide'}
-            </span>
-          </button>
-
-          {/* Wallet Navigation */}
-          <button
-            onClick={onOpenWallet}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-800 hover:bg-slate-100 transition-all text-xs font-bold shadow-sm"
-          >
-            <Wallet className="w-3.5 h-3.5 text-emerald-600" />
-            <span>৳ {walletBalance}</span>
-          </button>
-
-          {/* Ride History Navigation */}
-          <button
-            onClick={onOpenHistory}
-            className="p-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100 transition-all"
-            title="Trip History"
-          >
-            <History className="w-4 h-4" />
           </button>
 
           {/* Language Switcher */}
@@ -169,20 +140,10 @@ export const Header: React.FC<HeaderProps> = ({
                   />
                 </svg>
                 <span className="hidden sm:inline">
-                  {language === 'bn' ? 'গুগল সাইন-ইন' : 'Google Login'}
+                  {language === 'bn' ? 'লগইন' : 'Login'}
                 </span>
               </>
             )}
-          </button>
-
-          {/* Emergency 999 SOS Button */}
-          <button
-            onClick={onTriggerSOS}
-            className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition-all shadow-sm"
-            title="National Police Helpline 999 SOS"
-          >
-            <ShieldAlert className="w-3.5 h-3.5" />
-            <span className="hidden xs:inline">SOS 999</span>
           </button>
         </div>
       </div>

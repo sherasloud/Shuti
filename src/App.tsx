@@ -311,8 +311,8 @@ export default function App() {
         )}
       </main>
 
-      {/* Mobile Sticky Navigation Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40">
+      {/* App Bottom Navigation Bar (App Experience) */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 shadow-2xl">
         <BottomNavBar
           activeTab={activeTab}
           onSelectTab={handleSelectTab}
