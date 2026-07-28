@@ -95,17 +95,17 @@ export const DriverBiddingModal: React.FC<DriverBiddingModalProps> = ({
         </div>
 
         {/* Radar Sweep Animation */}
-        <div className="relative py-4 flex flex-col items-center justify-center bg-slate-50/60 rounded-xl border border-slate-100 overflow-hidden">
-          <div className="w-24 h-24 rounded-full border border-emerald-200 flex items-center justify-center relative">
-            <div className="w-16 h-16 rounded-full border border-emerald-300 flex items-center justify-center">
-              <Car className="w-8 h-8 text-emerald-500" />
+        <div className="relative py-8 flex flex-col items-center justify-center bg-slate-50/60 rounded-2xl border border-slate-100 overflow-hidden">
+          <div className="w-28 h-28 rounded-full border border-emerald-200 flex items-center justify-center relative">
+            <div className="w-20 h-20 rounded-full border border-emerald-300 flex items-center justify-center">
+              <Car className="w-10 h-10 text-emerald-500" />
             </div>
-            <div className="absolute inset-0 rounded-full border-2 border-emerald-400/40 animate-ping opacity-75" />
+            <div className="absolute inset-0 rounded-full border border-emerald-400/20 animate-ping" />
           </div>
-          <p className="text-xs font-semibold text-emerald-600 mt-2 flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <p className="text-xs font-bold text-slate-900 mt-4 flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             {radarSearching
-              ? (language === 'bn' ? 'আশেপাশের রাইডার রাডার স্ক্যানিং...' : 'Radar Scanning nearby drivers...')
+              ? (language === 'bn' ? 'চালকের খোঁজ চলছে...' : 'Finding nearby drivers...')
               : (language === 'bn' ? '৩ জন চালক পাওয়া গেছে' : '3 Verified Drivers found')}
           </p>
         </div>

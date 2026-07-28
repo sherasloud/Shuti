@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Language, 
   AppMode, 
@@ -8,7 +8,8 @@ import {
   RideStatus, 
   RideDetails, 
   RideHistoryItem, 
-  Driver 
+  Driver,
+  UserProfile 
 } from './types';
 import { BD_LOCATIONS } from './data/bdLocations';
 import { VEHICLE_OPTIONS } from './data/vehicleTypes';
@@ -23,12 +24,59 @@ import { AIAssistantDrawer } from './components/AIAssistantDrawer';
 import { SafetySOSModal } from './components/SafetySOSModal';
 import { WalletModal } from './components/WalletModal';
 import { HistoryModal } from './components/HistoryModal';
+import { GoogleAuthModal } from './components/GoogleAuthModal';
+import { BottomNavBar } from './components/BottomNavBar';
+import { Wifi, Battery, Signal, Smartphone } from 'lucide-react';
 
 export default function App() {
   // Global Application State
   const [language, setLanguage] = useState<Language>('bn');
   const [appMode, setAppMode] = useState<AppMode>('passenger');
   const [selectedCity, setSelectedCity] = useState<'Dhaka' | 'Chittagong' | 'CoxsBazar' | 'Sylhet'>('Dhaka');
+  const [activeTab, setActiveTab] = useState<'ride' | 'wallet' | 'history' | 'ai' | 'sos' | 'account'>('ride');
+
+  // Time state for mobile status bar
+  const [timeString, setTimeString] = useState('09:41');
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setTimeString(now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }));
+    };
+    updateTime();
+    const timer = setInterval(updateTime, 30000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // User Auth State
+  const [user, setUser] = useState<UserProfile | null>(() => {
+    try {
+      const savedUser = localStorage.getItem('shuti_user_profile');
+      if (savedUser) return JSON.parse(savedUser);
+    } catch (e) {
+      console.error(e);
+    }
+    return null;
+  });
+  const [isGoogleAuthOpen, setIsGoogleAuthOpen] = useState(false);
+
+  // Sync user profile to localStorage
+  const handleUserLogin = (newUser: UserProfile) => {
+    setUser(newUser);
+    try {
+      localStorage.setItem('shuti_user_profile', JSON.stringify(newUser));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleUserLogout = () => {
+    setUser(null);
+    try {
+      localStorage.removeItem('shuti_user_profile');
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   // Booking & Location State
   const [pickup, setPickup] = useState<LocationPoint | null>(BD_LOCATIONS[0]); // Dhanmondi 27
@@ -86,6 +134,16 @@ export default function App() {
       setPickup(cityLocs[0]);
       setDropoff(cityLocs[1]);
     }
+  };
+
+  // Handle Bottom Nav Bar Clicks
+  const handleSelectTab = (tab: 'ride' | 'wallet' | 'history' | 'ai' | 'sos' | 'account') => {
+    setActiveTab(tab);
+    if (tab === 'wallet') setIsWalletOpen(true);
+    else if (tab === 'history') setIsHistoryOpen(true);
+    else if (tab === 'ai') setIsAIGuideOpen(true);
+    else if (tab === 'sos') setIsSOSOpen(true);
+    else if (tab === 'account') setIsGoogleAuthOpen(true);
   };
 
   // Handle Promo Code Apply
@@ -154,7 +212,6 @@ export default function App() {
       paymentMethod: currentRide.paymentMethod
     };
 
-    // Deduct from wallet if wallet payment
     if (currentRide.paymentMethod === 'shuti_wallet') {
       setWalletBalance((prev) => Math.max(0, prev - currentRide.fareBDT));
     }
@@ -172,7 +229,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col antialiased selection:bg-slate-200 pb-16 md:pb-0">
       
       {/* Top Header */}
       <Header
@@ -185,16 +242,18 @@ export default function App() {
         onOpenHistory={() => setIsHistoryOpen(true)}
         onOpenAIGuide={() => setIsAIGuideOpen(true)}
         onTriggerSOS={() => setIsSOSOpen(true)}
+        user={user}
+        onOpenGoogleAuth={() => setIsGoogleAuthOpen(true)}
       />
 
       {/* Main Container Layout */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-10">
         
         {appMode === 'passenger' ? (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             {/* Left Column: Booking Form or Active Ride Sheet */}
-            <div className="lg:col-span-5 space-y-6">
+            <div className="lg:col-span-5 space-y-8">
               {rideStatus === 'idle' ? (
                 <BookingPanel
                   pickup={pickup}
@@ -226,7 +285,7 @@ export default function App() {
             </div>
 
             {/* Right Column: Live Interactive Vector Map */}
-            <div className="lg:col-span-7 h-[450px] sm:h-[550px] lg:h-[680px]">
+            <div className="lg:col-span-7 h-[500px] sm:h-[600px] lg:h-[720px]">
               <InteractiveMap
                 pickup={pickup}
                 dropoff={dropoff}
@@ -252,6 +311,24 @@ export default function App() {
         )}
       </main>
 
+      {/* Mobile Sticky Navigation Bar */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40">
+        <BottomNavBar
+          activeTab={activeTab}
+          onSelectTab={handleSelectTab}
+          walletBalance={walletBalance}
+          user={user}
+          language={language}
+        />
+      </div>
+
+      {/* Footer Branding */}
+      <footer className="py-8 text-center border-t border-slate-200 mt-12 bg-white">
+        <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em]">
+          Shuti BD • Seamless Ride Sharing Bangladesh
+        </p>
+      </footer>
+
       {/* Modals & Drawers */}
       {isBiddingModalOpen && (
         <DriverBiddingModal
@@ -273,7 +350,10 @@ export default function App() {
 
       <AIAssistantDrawer
         isOpen={isAIGuideOpen}
-        onClose={() => setIsAIGuideOpen(false)}
+        onClose={() => {
+          setIsAIGuideOpen(false);
+          setActiveTab('ride');
+        }}
         pickupName={pickup?.name}
         dropoffName={dropoff?.name}
         vehicleType={selectedVehicle.name}
@@ -282,13 +362,19 @@ export default function App() {
 
       <SafetySOSModal
         isOpen={isSOSOpen}
-        onClose={() => setIsSOSOpen(false)}
+        onClose={() => {
+          setIsSOSOpen(false);
+          setActiveTab('ride');
+        }}
         language={language}
       />
 
       <WalletModal
         isOpen={isWalletOpen}
-        onClose={() => setIsWalletOpen(false)}
+        onClose={() => {
+          setIsWalletOpen(false);
+          setActiveTab('ride');
+        }}
         balance={walletBalance}
         onTopUp={(amt) => setWalletBalance((prev) => prev + amt)}
         language={language}
@@ -296,17 +382,26 @@ export default function App() {
 
       <HistoryModal
         isOpen={isHistoryOpen}
-        onClose={() => setIsHistoryOpen(false)}
+        onClose={() => {
+          setIsHistoryOpen(false);
+          setActiveTab('ride');
+        }}
         history={history}
         language={language}
       />
 
-      {/* Footer Branding */}
-      <footer className="border-t border-slate-200 bg-white/80 py-4 text-center text-xs text-slate-400">
-        <p>
-          Shuti (ছুটি) Ride Sharing Bangladesh • Dhaka • Chittagong • Cox’s Bazar • Sylhet
-        </p>
-      </footer>
+      <GoogleAuthModal
+        isOpen={isGoogleAuthOpen}
+        onClose={() => {
+          setIsGoogleAuthOpen(false);
+          setActiveTab('ride');
+        }}
+        user={user}
+        onLogin={handleUserLogin}
+        onLogout={handleUserLogout}
+        language={language}
+      />
     </div>
   );
 }
+

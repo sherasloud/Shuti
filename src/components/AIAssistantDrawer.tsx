@@ -73,22 +73,22 @@ export const AIAssistantDrawer: React.FC<AIAssistantDrawerProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-slate-900/40 backdrop-blur-sm animate-fade-in">
-      <div className="w-full max-w-md bg-white border-l border-slate-200 h-full p-5 shadow-2xl flex flex-col justify-between text-slate-900 space-y-4">
+    <div className="fixed inset-0 z-50 flex justify-end bg-slate-900/20 backdrop-blur-[2px] animate-fade-in">
+      <div className="w-full max-w-md bg-white border-l border-slate-100 h-full p-6 shadow-2xl flex flex-col justify-between text-slate-900 space-y-6">
         
         {/* Header */}
         <div>
-          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-            <div className="flex items-center gap-2">
-              <div className="p-2 rounded-xl bg-gradient-to-tr from-amber-500 to-emerald-500 text-white shadow-md">
-                <Sparkles className="w-5 h-5 animate-pulse" />
+          <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-slate-900 text-white shadow-sm">
+                <Sparkles className="w-5 h-5" />
               </div>
               <div>
                 <h3 className="text-base font-bold text-slate-900">
-                  {language === 'bn' ? 'ছুটি এআই ট্রাফিক গাইড' : 'Shuti AI Route Advisor'}
+                  {language === 'bn' ? 'ছুটি এআই গাইড' : 'Shuti AI Advisor'}
                 </h3>
-                <p className="text-[11px] text-slate-500">
-                  {language === 'bn' ? 'স্মার্ট রুট বিশ্লেষণ ও ভাড়া পরামর্শ' : 'Real-time Bangladesh route intelligence'}
+                <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">
+                  {language === 'bn' ? 'রুট ও ট্রাফিক গাইড' : 'Route Intelligence'}
                 </p>
               </div>
             </div>
@@ -101,9 +101,9 @@ export const AIAssistantDrawer: React.FC<AIAssistantDrawerProps> = ({
           </div>
 
           {/* Quick AI Query Buttons */}
-          <div className="pt-4 space-y-3">
-            <p className="text-xs font-semibold text-slate-500">
-              {language === 'bn' ? 'দ্রুত পরামর্শ প্রশ্ন:' : 'Quick Route Checks:'}
+          <div className="pt-5 space-y-3">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+              {language === 'bn' ? 'পরামর্শ:' : 'Quick Advice:'}
             </p>
             <div className="flex flex-wrap gap-2">
               {[
@@ -116,9 +116,9 @@ export const AIAssistantDrawer: React.FC<AIAssistantDrawerProps> = ({
                   onClick={() => {
                     setPrompt(q);
                   }}
-                  className="px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 hover:border-amber-400 text-slate-600 text-xs transition-all text-left shadow-sm hover:shadow-md"
+                  className="px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-100 hover:border-emerald-200 text-slate-600 text-[11px] font-medium transition-all text-left"
                 >
-                  💡 {q}
+                  {q}
                 </button>
               ))}
             </div>

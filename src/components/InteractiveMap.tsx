@@ -148,16 +148,16 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
     <div className="relative w-full h-[380px] sm:h-[480px] lg:h-full min-h-[400px] rounded-2xl overflow-hidden border border-slate-200 shadow-2xl bg-slate-50 select-none">
       
       {/* City Switcher & Mode Header */}
-      <div className="absolute top-3 left-3 right-3 z-20 flex flex-wrap items-center justify-between gap-2 pointer-events-auto">
-        <div className="flex items-center gap-1.5 p-1 bg-white/90 backdrop-blur-md border border-slate-200 rounded-xl shadow-lg">
+      <div className="absolute top-4 left-4 right-4 z-20 flex flex-wrap items-center justify-between gap-3 pointer-events-auto">
+        <div className="flex items-center gap-1 p-1 bg-white border border-slate-100 rounded-xl shadow-sm">
           {(['Dhaka', 'Chittagong', 'CoxsBazar', 'Sylhet'] as const).map((city) => (
             <button
               key={city}
               onClick={() => onCityChange(city)}
-              className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all ${
+              className={`px-3 py-1 text-[11px] font-bold rounded-lg transition-all ${
                 selectedCity === city
-                  ? 'bg-emerald-600 text-white shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                  ? 'bg-slate-900 text-white'
+                  : 'text-slate-500 hover:text-slate-900'
               }`}
             >
               {city === 'Dhaka' ? (language === 'bn' ? 'ঢাকা' : 'Dhaka') :
@@ -169,26 +169,23 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
         </div>
 
         {/* Map Click Mode Toggle (Pickup vs Dropoff) */}
-        <div className="flex items-center gap-1 p-1 bg-white/90 backdrop-blur-md border border-slate-200 rounded-xl text-xs font-semibold">
-          <span className="text-[11px] text-slate-500 px-1">
-            {language === 'bn' ? 'ম্যাপ ট্যাপ:' : 'Tap map for:'}
-          </span>
+        <div className="flex items-center gap-1 p-1 bg-white border border-slate-100 rounded-xl">
           <button
             onClick={() => setClickMode('pickup')}
-            className={`px-2 py-0.5 rounded-md transition-all ${
+            className={`px-3 py-1 rounded-lg text-[11px] font-bold transition-all ${
               clickMode === 'pickup'
-                ? 'bg-emerald-500 text-white font-bold'
-                : 'text-slate-600 hover:bg-slate-100'
+                ? 'bg-emerald-600 text-white'
+                : 'text-slate-500 hover:bg-slate-50'
             }`}
           >
             {language === 'bn' ? 'পিকআপ' : 'Pickup'}
           </button>
           <button
             onClick={() => setClickMode('dropoff')}
-            className={`px-2 py-0.5 rounded-md transition-all ${
+            className={`px-3 py-1 rounded-lg text-[11px] font-bold transition-all ${
               clickMode === 'dropoff'
-                ? 'bg-rose-500 text-white font-bold'
-                : 'text-slate-600 hover:bg-slate-100'
+                ? 'bg-rose-500 text-white'
+                : 'text-slate-500 hover:bg-slate-50'
             }`}
           >
             {language === 'bn' ? 'গন্তব্য' : 'Dropoff'}

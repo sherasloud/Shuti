@@ -35,21 +35,21 @@ export const SafetySOSModal: React.FC<SafetySOSModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-rose-900/40 backdrop-blur-md animate-fade-in">
-      <div className="bg-white border-2 border-rose-500 rounded-2xl w-full max-w-md p-5 shadow-2xl space-y-5 text-slate-900">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/10 backdrop-blur-[2px] animate-fade-in">
+      <div className="bg-white border border-slate-100 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-6 text-slate-900">
         
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-          <div className="flex items-center gap-2">
-            <div className="p-2 rounded-xl bg-rose-600 text-white animate-pulse shadow-sm">
+        <div className="flex items-center justify-between border-b border-slate-50 pb-4">
+          <div className="flex items-center gap-3">
+            <div className="p-2.5 rounded-xl bg-rose-600 text-white shadow-sm">
               <ShieldAlert className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-base font-black text-rose-600">
-                {language === 'bn' ? 'জাতীয় জরুরি সেবা ৯৯৯ এসওএস' : 'Emergency SOS 999 Alert'}
+              <h3 className="text-base font-bold text-slate-900">
+                {language === 'bn' ? 'জরুরি এসওএস ৯৯৯' : 'Emergency SOS 999'}
               </h3>
-              <p className="text-[11px] text-slate-500">
-                {language === 'bn' ? 'ঢাকা মেট্রোপলিটন পুলিশ ও জরুরি কন্ট্রোল' : 'Dhaka Metropolitan Police Hotline'}
+              <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">
+                {language === 'bn' ? 'পুলিশ ও জরুরি কন্ট্রোল' : 'Police Hotline'}
               </p>
             </div>
           </div>

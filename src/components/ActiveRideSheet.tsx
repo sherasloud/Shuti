@@ -95,7 +95,7 @@ export const ActiveRideSheet: React.FC<ActiveRideSheetProps> = ({
       <div className="flex items-center justify-between bg-emerald-50 border border-emerald-100 rounded-xl p-3">
         <div>
           <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider block">
-            {language === 'bn' ? 'পিকআপ সিকিউরিটি পিন (OTP)' : 'Security Start PIN'}
+            {language === 'bn' ? 'সিকিউরিটি পিন (OTP)' : 'Security PIN'}
           </span>
           <div className="flex items-center gap-1.5 mt-0.5">
             <Lock className="w-4 h-4 text-emerald-600" />
@@ -109,10 +109,10 @@ export const ActiveRideSheet: React.FC<ActiveRideSheetProps> = ({
           <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
             {ride.status === 'in_transit'
               ? (language === 'bn' ? 'গন্তব্যে পৌঁছাতে বাকি' : 'Trip ETA')
-              : (language === 'bn' ? 'চালকের পৌঁছাতে বাকি' : 'Driver Arriving In')}
+              : (language === 'bn' ? 'চালকের পৌঁছাতে বাকি' : 'Driver ETA')}
           </span>
           <div className="flex items-center gap-1 mt-0.5 text-amber-600 font-mono font-black text-xl">
-            <Clock className="w-4 h-4 animate-pulse" />
+            <Clock className="w-4 h-4" />
             <span>{formatEta(etaSeconds)}</span>
           </div>
         </div>

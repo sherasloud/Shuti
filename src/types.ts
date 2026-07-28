@@ -95,6 +95,15 @@ export interface RideHistoryItem {
   paymentMethod: PaymentMethod;
 }
 
+export interface UserProfile {
+  id: string;
+  name: string;
+  email: string;
+  avatar: string;
+  isLoggedIn: boolean;
+  provider: 'google';
+}
+
 export interface AIRouteAdvice {
   trafficStatus: string;
   recommendedRoute: string;

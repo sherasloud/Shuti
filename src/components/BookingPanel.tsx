@@ -89,39 +89,38 @@ export const BookingPanel: React.FC<BookingPanelProps> = ({
   };
 
   return (
-    <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-6 shadow-xl space-y-5 text-slate-900">
+    <div className="bg-white border border-slate-200 rounded-2xl p-5 sm:p-7 shadow-sm space-y-6 text-slate-900">
       
       {/* Location Input Section */}
-      <div className="space-y-3 relative">
+      <div className="space-y-4 relative">
         <div className="flex items-center justify-between">
-          <h2 className="text-base font-bold flex items-center gap-2 text-emerald-600">
-            <Navigation className="w-5 h-5" />
-            <span>{language === 'bn' ? 'রাইড বুকিং ও গন্তব্য' : 'Set Pickup & Destination'}</span>
+          <h2 className="text-sm font-bold flex items-center gap-2 text-slate-900">
+            <Navigation className="w-4 h-4 text-emerald-600" />
+            <span>{language === 'bn' ? 'কোথায় যাবেন?' : 'Where to?'}</span>
           </h2>
           <button
             onClick={handleSwap}
-            className="p-2 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-600 hover:text-slate-900 transition-all text-xs flex items-center gap-1 border border-slate-200"
+            className="p-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-all border border-slate-200"
             title="Swap Locations"
           >
             <ArrowUpDown className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">{language === 'bn' ? 'অদল-বদল' : 'Swap'}</span>
           </button>
         </div>
 
         {/* Pickup Input */}
         <div className="relative">
-          <div className="flex items-center gap-3 p-3 bg-slate-50 border border-slate-200 rounded-xl focus-within:border-emerald-500 transition-all">
-            <div className="w-4 h-4 rounded-full bg-emerald-500 ring-4 ring-emerald-100 shrink-0" />
+          <div className="flex items-center gap-3 p-3.5 bg-slate-50 border border-slate-100 rounded-xl focus-within:border-emerald-500/50 focus-within:bg-white transition-all">
+            <div className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
             <input
               type="text"
-              placeholder={language === 'bn' ? 'পিকআপ পয়েন্ট খুঁজুন...' : 'Enter Pickup Location...'}
+              placeholder={language === 'bn' ? 'পিকআপ পয়েন্ট...' : 'Pickup Location...'}
               value={pickup ? (language === 'bn' ? pickup.nameBn : pickup.name) : pickupSearch}
               onChange={(e) => {
                 setPickupSearch(e.target.value);
                 setShowPickupDropdown(true);
               }}
               onFocus={() => setShowPickupDropdown(true)}
-              className="w-full bg-transparent text-sm text-slate-900 focus:outline-none placeholder-slate-400"
+              className="w-full bg-transparent text-sm text-slate-900 focus:outline-none placeholder-slate-400 font-medium"
             />
           </div>
 
@@ -159,18 +158,18 @@ export const BookingPanel: React.FC<BookingPanelProps> = ({
 
         {/* Dropoff Input */}
         <div className="relative">
-          <div className="flex items-center gap-3 p-3 bg-slate-50 border border-slate-200 rounded-xl focus-within:border-rose-500 transition-all">
-            <div className="w-4 h-4 rounded-full bg-rose-500 ring-4 ring-rose-100 shrink-0" />
+          <div className="flex items-center gap-3 p-3.5 bg-slate-50 border border-slate-100 rounded-xl focus-within:border-rose-500/50 focus-within:bg-white transition-all">
+            <div className="w-2 h-2 rounded-full bg-rose-500 shrink-0" />
             <input
               type="text"
-              placeholder={language === 'bn' ? 'গন্তব্য বা ড্রপঅফ পয়েন্ট লিখুন...' : 'Enter Destination Dropoff...'}
+              placeholder={language === 'bn' ? 'গন্তব্য...' : 'Destination...'}
               value={dropoff ? (language === 'bn' ? dropoff.nameBn : dropoff.name) : dropoffSearch}
               onChange={(e) => {
                 setDropoffSearch(e.target.value);
                 setShowDropoffDropdown(true);
               }}
               onFocus={() => setShowDropoffDropdown(true)}
-              className="w-full bg-transparent text-sm text-slate-900 focus:outline-none placeholder-slate-400"
+              className="w-full bg-transparent text-sm text-slate-900 focus:outline-none placeholder-slate-400 font-medium"
             />
           </div>
 
@@ -243,33 +242,30 @@ export const BookingPanel: React.FC<BookingPanelProps> = ({
                   onSelectVehicle(v);
                   onChangeOfferedFare(fare);
                 }}
-                className={`p-3 rounded-xl border text-left transition-all relative overflow-hidden flex flex-col justify-between ${
+                className={`p-3.5 rounded-2xl border text-left transition-all relative flex flex-col justify-between ${
                   isSelected
-                    ? 'bg-emerald-50 border-emerald-500 shadow-md ring-1 ring-emerald-500/20'
-                    : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                    ? 'bg-slate-900 border-slate-900 text-white shadow-lg'
+                    : 'bg-white border-slate-100 hover:border-slate-200 hover:bg-slate-50 text-slate-900'
                 }`}
               >
                 <div>
-                  <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center justify-between mb-1.5">
                     <span className="text-2xl">{v.icon}</span>
-                    <span className="text-[10px] font-semibold text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">
+                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${isSelected ? 'bg-slate-800 text-slate-300' : 'bg-slate-50 text-slate-500'}`}>
                       {v.etaMins} {language === 'bn' ? 'মি' : 'min'}
                     </span>
                   </div>
-                  <p className="text-xs font-bold text-slate-900">
+                  <p className="text-xs font-bold">
                     {language === 'bn' ? v.nameBn : v.name}
-                  </p>
-                  <p className="text-[10px] text-slate-500 line-clamp-1">
-                    {language === 'bn' ? v.popularForBn : v.popularFor}
                   </p>
                 </div>
 
-                <div className="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between">
-                  <span className="text-xs font-black text-emerald-600">
-                    ৳ {fare}
+                <div className={`mt-2 pt-2 border-t flex items-center justify-between ${isSelected ? 'border-slate-800' : 'border-slate-50'}`}>
+                  <span className={`text-xs font-bold ${isSelected ? 'text-emerald-400' : 'text-emerald-600'}`}>
+                    ৳{fare}
                   </span>
-                  <span className="text-[10px] text-slate-400">
-                    👤 {v.capacity}
+                  <span className={`text-[9px] ${isSelected ? 'text-slate-500' : 'text-slate-400'}`}>
+                    👤{v.capacity}
                   </span>
                 </div>
               </button>
@@ -386,15 +382,15 @@ export const BookingPanel: React.FC<BookingPanelProps> = ({
       <button
         onClick={onStartBidding}
         disabled={!pickup || !dropoff}
-        className={`w-full py-3.5 rounded-xl text-base font-black flex items-center justify-center gap-2 shadow-xl transition-all ${
+        className={`w-full py-4 rounded-2xl text-sm font-bold flex items-center justify-center gap-2 transition-all ${
           pickup && dropoff
-            ? 'bg-gradient-to-r from-emerald-600 via-emerald-500 to-rose-600 hover:from-emerald-500 hover:to-rose-500 text-white shadow-emerald-100 active:scale-[0.99]'
-            : 'bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200'
+            ? 'bg-slate-900 hover:bg-slate-800 text-white shadow-xl active:scale-[0.98]'
+            : 'bg-slate-100 text-slate-400 cursor-not-allowed'
         }`}
       >
-        <Navigation className="w-5 h-5 rotate-45" />
+        <Navigation className="w-4 h-4 rotate-45" />
         <span>
-          {language === 'bn' ? 'ছুটি চালক খুঁজুন (৳' + offeredFareBDT + ')' : 'Find Shuti Drivers (৳' + offeredFareBDT + ')'}
+          {language === 'bn' ? 'চালকের জন্য রিকোয়েস্ট (৳' + offeredFareBDT + ')' : 'Request Driver (৳' + offeredFareBDT + ')'}
         </span>
       </button>
 
