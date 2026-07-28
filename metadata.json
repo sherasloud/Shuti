@@ -1,0 +1,6 @@
+{
+  "name": "Shuti",
+  "description": "Smart ride-sharing app for Bangladesh featuring Bike, CNG Auto-Rickshaw, Car, & Microbus rides with live tracking, bKash & Nagad payments, fare bidding, and Bangla AI assistant.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
