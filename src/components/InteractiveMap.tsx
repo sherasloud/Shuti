@@ -145,11 +145,11 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
   };
 
   return (
-    <div className="relative w-full h-[380px] sm:h-[480px] lg:h-full min-h-[400px] rounded-2xl overflow-hidden border border-emerald-800/40 shadow-2xl bg-slate-950 select-none">
+    <div className="relative w-full h-[380px] sm:h-[480px] lg:h-full min-h-[400px] rounded-2xl overflow-hidden border border-slate-200 shadow-2xl bg-slate-50 select-none">
       
       {/* City Switcher & Mode Header */}
       <div className="absolute top-3 left-3 right-3 z-20 flex flex-wrap items-center justify-between gap-2 pointer-events-auto">
-        <div className="flex items-center gap-1.5 p-1 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 rounded-xl shadow-lg">
+        <div className="flex items-center gap-1.5 p-1 bg-white/90 backdrop-blur-md border border-slate-200 rounded-xl shadow-lg">
           {(['Dhaka', 'Chittagong', 'CoxsBazar', 'Sylhet'] as const).map((city) => (
             <button
               key={city}
@@ -157,7 +157,7 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
               className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all ${
                 selectedCity === city
                   ? 'bg-emerald-600 text-white shadow-sm'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
               {city === 'Dhaka' ? (language === 'bn' ? 'ঢাকা' : 'Dhaka') :
@@ -169,16 +169,16 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
         </div>
 
         {/* Map Click Mode Toggle (Pickup vs Dropoff) */}
-        <div className="flex items-center gap-1 p-1 bg-slate-900/90 backdrop-blur-md border border-slate-700/80 rounded-xl text-xs font-semibold">
-          <span className="text-[11px] text-slate-400 px-1">
+        <div className="flex items-center gap-1 p-1 bg-white/90 backdrop-blur-md border border-slate-200 rounded-xl text-xs font-semibold">
+          <span className="text-[11px] text-slate-500 px-1">
             {language === 'bn' ? 'ম্যাপ ট্যাপ:' : 'Tap map for:'}
           </span>
           <button
             onClick={() => setClickMode('pickup')}
             className={`px-2 py-0.5 rounded-md transition-all ${
               clickMode === 'pickup'
-                ? 'bg-emerald-500 text-slate-950 font-bold'
-                : 'text-slate-300 hover:bg-slate-800'
+                ? 'bg-emerald-500 text-white font-bold'
+                : 'text-slate-600 hover:bg-slate-100'
             }`}
           >
             {language === 'bn' ? 'পিকআপ' : 'Pickup'}
@@ -188,7 +188,7 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
             className={`px-2 py-0.5 rounded-md transition-all ${
               clickMode === 'dropoff'
                 ? 'bg-rose-500 text-white font-bold'
-                : 'text-slate-300 hover:bg-slate-800'
+                : 'text-slate-600 hover:bg-slate-100'
             }`}
           >
             {language === 'bn' ? 'গন্তব্য' : 'Dropoff'}
@@ -203,7 +203,7 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
         className="w-full h-full relative cursor-crosshair overflow-hidden transition-transform duration-300"
         style={{
           transform: `scale(${zoomLevel})`,
-          backgroundColor: mapMode === 'night' ? '#0b0f19' : mapMode === 'satellite' ? '#0f172a' : '#111827'
+          backgroundColor: mapMode === 'night' ? '#0f172a' : mapMode === 'satellite' ? '#1e293b' : '#f8fafc'
         }}
       >
         {/* SVG Grid Roads & Rivers */}
@@ -211,7 +211,7 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
           {/* Background Grid Pattern */}
           <defs>
             <pattern id="roadGrid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" strokeWidth="1" />
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke={mapMode === 'standard' ? '#e2e8f0' : '#1e293b'} strokeWidth="1" />
             </pattern>
             {/* Pulsating Glow Effect for Route */}
             <linearGradient id="routeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -228,38 +228,38 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
             <path
               d="M 0 320 Q 200 290 400 350 T 800 310"
               fill="none"
-              stroke="#0284c7"
+              stroke="#bae6fd"
               strokeWidth="28"
-              opacity="0.3"
+              opacity="0.5"
             />
           )}
           {selectedCity === 'Chittagong' && (
             <path
               d="M 0 100 Q 300 250 800 400"
               fill="none"
-              stroke="#0284c7"
+              stroke="#bae6fd"
               strokeWidth="35"
-              opacity="0.3"
+              opacity="0.5"
             />
           )}
           {selectedCity === 'CoxsBazar' && (
             <path
               d="M 0 0 Q 250 200 500 500"
               fill="none"
-              stroke="#0284c7"
+              stroke="#bae6fd"
               strokeWidth="120"
-              opacity="0.25"
+              opacity="0.4"
             />
           )}
 
           {/* Main Highway Expressways (Dhaka Elevated, Hanif Flyover, etc.) */}
-          <path d="M 100 0 L 100 500" stroke="#334155" strokeWidth="8" />
-          <path d="M 0 200 L 800 200" stroke="#334155" strokeWidth="8" />
-          <path d="M 0 100 L 800 400" stroke="#475569" strokeWidth="6" strokeDasharray="6,6" />
-          <path d="M 300 0 L 300 500" stroke="#334155" strokeWidth="6" />
+          <path d="M 100 0 L 100 500" stroke={mapMode === 'standard' ? '#cbd5e1' : '#334155'} strokeWidth="8" />
+          <path d="M 0 200 L 800 200" stroke={mapMode === 'standard' ? '#cbd5e1' : '#334155'} strokeWidth="8" />
+          <path d="M 0 100 L 800 400" stroke={mapMode === 'standard' ? '#cbd5e1' : '#475569'} strokeWidth="6" strokeDasharray="6,6" />
+          <path d="M 300 0 L 300 500" stroke={mapMode === 'standard' ? '#cbd5e1' : '#334155'} strokeWidth="6" />
 
           {/* Flyover Yellow Express Corridor */}
-          <path d="M 50 50 Q 250 150 450 300 T 750 400" fill="none" stroke="#f59e0b" strokeWidth="4" strokeDasharray="8,4" opacity="0.6" />
+          <path d="M 50 50 Q 250 150 450 300 T 750 400" fill="none" stroke="#f59e0b" strokeWidth="4" strokeDasharray="8,4" opacity="0.4" />
 
           {/* Traffic Heatmap Congestion Zones */}
           {showTrafficHeatmap && (
@@ -270,19 +270,19 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
             </>
           )}
 
-          {/* Active Trip Polyline Route */}
-          {pickup && dropoff && (
-            <g>
-              {/* Outer Shadow Route */}
-              <line
-                x1={`${pPos.x}%`}
-                y1={`${pPos.y}%`}
-                x2={`${dPos.x}%`}
-                y2={`${dPos.y}%`}
-                stroke="#0f172a"
-                strokeWidth="10"
-                strokeLinecap="round"
-              />
+        {/* Active Trip Polyline Route */}
+        {pickup && dropoff && (
+          <g>
+            {/* Outer Shadow Route */}
+            <line
+              x1={`${pPos.x}%`}
+              y1={`${pPos.y}%`}
+              x2={`${dPos.x}%`}
+              y2={`${dPos.y}%`}
+              stroke={mapMode === 'standard' ? '#cbd5e1' : '#0f172a'}
+              strokeWidth="10"
+              strokeLinecap="round"
+            />
               {/* Gradient Animated Route Line */}
               <line
                 x1={`${pPos.x}%`}
@@ -364,7 +364,7 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
         )}
 
         {/* Map Watermark & Info */}
-        <div className="absolute bottom-3 left-3 z-10 text-[10px] text-slate-400 bg-slate-900/80 backdrop-blur-sm px-2.5 py-1 rounded-md border border-slate-800">
+        <div className="absolute bottom-3 left-3 z-10 text-[10px] text-slate-500 bg-white/80 backdrop-blur-sm px-2.5 py-1 rounded-md border border-slate-200">
           Shuti Live Vector Map • {selectedCity} Traffic Engine
         </div>
       </div>
@@ -376,7 +376,7 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
           className={`p-2.5 rounded-xl border backdrop-blur-md transition-all shadow-lg text-xs flex items-center gap-1.5 font-bold ${
             showTrafficHeatmap
               ? 'bg-rose-600 text-white border-rose-500'
-              : 'bg-slate-900/90 text-slate-300 border-slate-700 hover:text-white'
+              : 'bg-white/90 text-slate-600 border-slate-200 hover:text-slate-900'
           }`}
           title="Toggle Dhaka Traffic Congestion Heatmap"
         >
@@ -388,23 +388,23 @@ export const InteractiveMap: React.FC<InteractiveMapProps> = ({
 
         <button
           onClick={() => setMapMode(mapMode === 'standard' ? 'night' : mapMode === 'night' ? 'satellite' : 'standard')}
-          className="p-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-slate-300 hover:text-white backdrop-blur-md transition-all shadow-lg text-xs flex items-center gap-1.5 font-bold"
+          className="p-2.5 rounded-xl bg-white/90 border border-slate-200 text-slate-600 hover:text-slate-900 backdrop-blur-md transition-all shadow-lg text-xs flex items-center gap-1.5 font-bold"
           title="Switch Map Theme"
         >
           <Layers className="w-4 h-4" />
           <span className="hidden sm:inline capitalize">{mapMode}</span>
         </button>
 
-        <div className="flex flex-col rounded-xl bg-slate-900/90 border border-slate-700 overflow-hidden shadow-lg backdrop-blur-md">
+        <div className="flex flex-col rounded-xl bg-white/90 border border-slate-200 overflow-hidden shadow-lg backdrop-blur-md">
           <button
             onClick={() => setZoomLevel((z) => Math.min(z + 0.2, 1.6))}
-            className="p-2 text-slate-300 hover:text-white hover:bg-slate-800 border-b border-slate-800 text-sm font-bold"
+            className="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-50 border-b border-slate-200 text-sm font-bold"
           >
             +
           </button>
           <button
             onClick={() => setZoomLevel((z) => Math.max(z - 0.2, 0.8))}
-            className="p-2 text-slate-300 hover:text-white hover:bg-slate-800 text-sm font-bold"
+            className="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-50 text-sm font-bold"
           >
             -
           </button>

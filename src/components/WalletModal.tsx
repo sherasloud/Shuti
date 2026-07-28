@@ -41,47 +41,47 @@ export const WalletModal: React.FC<WalletModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-5 shadow-2xl space-y-4 text-white">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-md animate-fade-in">
+      <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-md p-5 shadow-2xl space-y-4 text-slate-900">
         
-        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="flex items-center justify-between border-b border-slate-100 pb-3">
           <div className="flex items-center gap-2">
-            <div className="p-2 rounded-xl bg-emerald-950 border border-emerald-700 text-emerald-400">
+            <div className="p-2 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-600 shadow-sm">
               <Wallet className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-white">
+              <h3 className="text-base font-bold text-slate-900">
                 {language === 'bn' ? 'শুটি পে ওয়ালেট' : 'Shuti Pay Wallet'}
               </h3>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-slate-500">
                 {language === 'bn' ? 'ক্যাশলেস রাইডের জন্য ওয়ালেট ব্যালেন্স' : 'Cashless ride balance & top-up'}
               </p>
             </div>
           </div>
-          <button onClick={onClose} className="p-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white">
+          <button onClick={onClose} className="p-1 rounded-lg bg-slate-50 text-slate-400 hover:text-slate-600 transition-all">
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Current Balance Display */}
-        <div className="bg-gradient-to-br from-emerald-950 via-slate-900 to-slate-950 border border-emerald-800/80 rounded-xl p-4 text-center space-y-1 shadow-inner">
-          <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
+        <div className="bg-gradient-to-br from-emerald-50 via-white to-slate-50 border border-emerald-100 rounded-xl p-4 text-center space-y-1 shadow-inner">
+          <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
             {language === 'bn' ? 'বর্তমান ব্যালেন্স' : 'Current Balance'}
           </span>
-          <span className="text-3xl font-black text-emerald-400 tracking-tight">
+          <span className="text-3xl font-black text-emerald-600 tracking-tight">
             ৳ {balance}
           </span>
         </div>
 
         {success ? (
-          <div className="text-center py-4 text-emerald-400 font-bold text-sm flex flex-col items-center gap-2">
+          <div className="text-center py-4 text-emerald-600 font-bold text-sm flex flex-col items-center gap-2">
             <CheckCircle2 className="w-10 h-10 animate-bounce" />
             <span>{language === 'bn' ? '৳' + topUpAmount + ' রিচার্জ সফল হয়েছে!' : '৳' + topUpAmount + ' Added Successfully!'}</span>
           </div>
         ) : (
           <form onSubmit={handleTopUpSubmit} className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-400 uppercase">
+              <label className="text-xs font-bold text-slate-500 uppercase">
                 {language === 'bn' ? 'রিচার্জের পরিমাণ (BDT)' : 'Select Top-Up Amount'}
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -90,10 +90,10 @@ export const WalletModal: React.FC<WalletModalProps> = ({
                     key={amt}
                     type="button"
                     onClick={() => setTopUpAmount(amt)}
-                    className={`py-2 text-xs font-bold rounded-xl border transition-all ${
+                    className={`py-2 text-xs font-bold rounded-xl border transition-all shadow-sm ${
                       topUpAmount === amt
                         ? 'bg-emerald-600 text-white border-emerald-500 shadow'
-                        : 'bg-slate-950 text-slate-300 border-slate-800 hover:bg-slate-800'
+                        : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
                     }`}
                   >
                     ৳ {amt}
@@ -103,17 +103,17 @@ export const WalletModal: React.FC<WalletModalProps> = ({
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-400 uppercase">
+              <label className="text-xs font-bold text-slate-500 uppercase">
                 {language === 'bn' ? 'মোবাইল ব্যাংকিং রিচার্জ' : 'Recharge Via MFS'}
               </label>
               <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
                   onClick={() => setSelectedMethod('bkash')}
-                  className={`py-2 px-3 rounded-xl border text-xs font-bold transition-all ${
+                  className={`py-2 px-3 rounded-xl border text-xs font-bold transition-all shadow-sm ${
                     selectedMethod === 'bkash'
-                      ? 'bg-pink-950 text-pink-300 border-pink-600 ring-2 ring-pink-600/40'
-                      : 'bg-slate-950 text-slate-400 border-slate-800'
+                      ? 'bg-pink-50 text-pink-700 border-pink-500 ring-2 ring-pink-500/20'
+                      : 'bg-white text-slate-400 border-slate-200'
                   }`}
                 >
                   🌸 bKash
@@ -121,10 +121,10 @@ export const WalletModal: React.FC<WalletModalProps> = ({
                 <button
                   type="button"
                   onClick={() => setSelectedMethod('nagad')}
-                  className={`py-2 px-3 rounded-xl border text-xs font-bold transition-all ${
+                  className={`py-2 px-3 rounded-xl border text-xs font-bold transition-all shadow-sm ${
                     selectedMethod === 'nagad'
-                      ? 'bg-orange-950 text-orange-300 border-orange-600 ring-2 ring-orange-600/40'
-                      : 'bg-slate-950 text-slate-400 border-slate-800'
+                      ? 'bg-orange-50 text-orange-700 border-orange-500 ring-2 ring-orange-500/20'
+                      : 'bg-white text-slate-400 border-slate-200'
                   }`}
                 >
                   🟠 Nagad

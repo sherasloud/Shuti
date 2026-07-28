@@ -89,29 +89,29 @@ export const ActiveRideSheet: React.FC<ActiveRideSheetProps> = ({
   };
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-2xl text-white space-y-4">
+    <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 shadow-2xl text-slate-900 space-y-4">
       
       {/* Top Banner & Security OTP PIN */}
-      <div className="flex items-center justify-between bg-emerald-950/80 border border-emerald-800/80 rounded-xl p-3">
+      <div className="flex items-center justify-between bg-emerald-50 border border-emerald-100 rounded-xl p-3">
         <div>
-          <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block">
+          <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider block">
             {language === 'bn' ? 'পিকআপ সিকিউরিটি পিন (OTP)' : 'Security Start PIN'}
           </span>
           <div className="flex items-center gap-1.5 mt-0.5">
-            <Lock className="w-4 h-4 text-emerald-400" />
-            <span className="text-xl font-black text-white tracking-widest">
+            <Lock className="w-4 h-4 text-emerald-600" />
+            <span className="text-xl font-black text-slate-900 tracking-widest">
               {ride.otpCode}
             </span>
           </div>
         </div>
 
         <div className="text-right">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
             {ride.status === 'in_transit'
               ? (language === 'bn' ? 'গন্তব্যে পৌঁছাতে বাকি' : 'Trip ETA')
               : (language === 'bn' ? 'চালকের পৌঁছাতে বাকি' : 'Driver Arriving In')}
           </span>
-          <div className="flex items-center gap-1 mt-0.5 text-amber-400 font-mono font-black text-xl">
+          <div className="flex items-center gap-1 mt-0.5 text-amber-600 font-mono font-black text-xl">
             <Clock className="w-4 h-4 animate-pulse" />
             <span>{formatEta(etaSeconds)}</span>
           </div>
@@ -120,7 +120,7 @@ export const ActiveRideSheet: React.FC<ActiveRideSheetProps> = ({
 
       {/* Driver Card Info */}
       {ride.driver && (
-        <div className="bg-slate-950 border border-slate-800 rounded-xl p-3.5 flex items-center justify-between gap-3">
+        <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <div className="relative">
               <img
@@ -128,22 +128,22 @@ export const ActiveRideSheet: React.FC<ActiveRideSheetProps> = ({
                 alt={ride.driver.name}
                 className="w-12 h-12 rounded-full object-cover border-2 border-emerald-500"
               />
-              <span className="w-3.5 h-3.5 bg-emerald-500 border-2 border-slate-950 rounded-full absolute bottom-0 right-0" />
+              <span className="w-3.5 h-3.5 bg-emerald-500 border-2 border-white rounded-full absolute bottom-0 right-0" />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <h4 className="text-sm font-bold text-white">
+                <h4 className="text-sm font-bold text-slate-900">
                   {language === 'bn' ? ride.driver.nameBn : ride.driver.name}
                 </h4>
-                <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-950 text-amber-300 font-bold border border-amber-800/60 flex items-center gap-0.5">
-                  <Star className="w-2.5 h-2.5 fill-amber-400 text-amber-400" />
+                <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-50 text-amber-700 font-bold border border-amber-200 flex items-center gap-0.5">
+                  <Star className="w-2.5 h-2.5 fill-amber-500 text-amber-500" />
                   {ride.driver.rating}
                 </span>
               </div>
-              <p className="text-xs text-emerald-400 font-semibold">
+              <p className="text-xs text-emerald-600 font-semibold">
                 {ride.driver.vehicleModel} ({ride.driver.vehicleNumber})
               </p>
-              <p className="text-[10px] text-slate-400">
+              <p className="text-[10px] text-slate-500">
                 {language === 'bn' ? 'মোটুকা ভেরিফাইড ক্যাপ্টেন' : 'NID Verified Captain'}
               </p>
             </div>
@@ -162,8 +162,8 @@ export const ActiveRideSheet: React.FC<ActiveRideSheetProps> = ({
               onClick={() => setChatOpen(!chatOpen)}
               className={`p-2.5 rounded-xl border transition-all ${
                 chatOpen
-                  ? 'bg-amber-500 text-slate-950 border-amber-400 font-bold'
-                  : 'bg-slate-800 text-slate-200 border-slate-700 hover:bg-slate-700'
+                  ? 'bg-amber-500 text-white border-amber-400 font-bold'
+                  : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50 shadow-sm'
               }`}
               title="Chat with Driver"
             >
@@ -175,12 +175,12 @@ export const ActiveRideSheet: React.FC<ActiveRideSheetProps> = ({
 
       {/* Driver Bangla Chat Simulation Box */}
       {chatOpen && (
-        <div className="bg-slate-950 border border-slate-800 rounded-xl p-3 space-y-2.5">
-          <div className="flex items-center justify-between text-xs border-b border-slate-800 pb-1.5">
-            <span className="font-bold text-slate-300">
+        <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-2.5 shadow-inner">
+          <div className="flex items-center justify-between text-xs border-b border-slate-200 pb-1.5">
+            <span className="font-bold text-slate-600">
               💬 {language === 'bn' ? 'চালকের সাথে চ্যাট' : 'In-App Driver Chat'}
             </span>
-            <button onClick={() => setChatOpen(false)} className="text-slate-500 hover:text-white">
+            <button onClick={() => setChatOpen(false)} className="text-slate-400 hover:text-slate-600">
               <X className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -195,12 +195,12 @@ export const ActiveRideSheet: React.FC<ActiveRideSheetProps> = ({
                   className={`max-w-[80%] px-3 py-1.5 rounded-xl text-xs ${
                     msg.sender === 'user'
                       ? 'bg-emerald-600 text-white rounded-br-none'
-                      : 'bg-slate-800 text-slate-200 rounded-bl-none'
+                      : 'bg-white text-slate-700 border border-slate-200 rounded-bl-none shadow-sm'
                   }`}
                 >
                   {msg.text}
                 </div>
-                <span className="text-[9px] text-slate-500 mt-0.5">{msg.time}</span>
+                <span className="text-[9px] text-slate-400 mt-0.5">{msg.time}</span>
               </div>
             ))}
           </div>
@@ -211,7 +211,7 @@ export const ActiveRideSheet: React.FC<ActiveRideSheetProps> = ({
               placeholder={language === 'bn' ? 'মেসেজ লিখুন...' : 'Type message...'}
               value={inputMsg}
               onChange={(e) => setInputMsg(e.target.value)}
-              className="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500"
+              className="flex-1 bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 focus:outline-none focus:border-emerald-500"
             />
             <button
               type="submit"
@@ -224,19 +224,19 @@ export const ActiveRideSheet: React.FC<ActiveRideSheetProps> = ({
       )}
 
       {/* Trip Route Details */}
-      <div className="bg-slate-950 border border-slate-800 rounded-xl p-3 space-y-2 text-xs">
+      <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-2 text-xs">
         <div className="flex items-center gap-2">
-          <MapPin className="w-4 h-4 text-emerald-400 shrink-0" />
-          <span className="font-semibold text-slate-300">
+          <MapPin className="w-4 h-4 text-emerald-600 shrink-0" />
+          <span className="font-semibold text-slate-700">
             {language === 'bn' ? ride.pickup.nameBn : ride.pickup.name}
           </span>
         </div>
-        <div className="border-l-2 border-dashed border-slate-700 ml-2 pl-4 py-0.5 text-[10px] text-slate-500">
+        <div className="border-l-2 border-dashed border-slate-300 ml-2 pl-4 py-0.5 text-[10px] text-slate-500">
           {ride.distanceKm} km • {ride.vehicle.name}
         </div>
         <div className="flex items-center gap-2">
-          <Navigation className="w-4 h-4 text-rose-400 shrink-0 rotate-45" />
-          <span className="font-semibold text-slate-300">
+          <Navigation className="w-4 h-4 text-rose-500 shrink-0 rotate-45" />
+          <span className="font-semibold text-slate-700">
             {language === 'bn' ? ride.dropoff.nameBn : ride.dropoff.name}
           </span>
         </div>
@@ -246,23 +246,23 @@ export const ActiveRideSheet: React.FC<ActiveRideSheetProps> = ({
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
         <button
           onClick={handleShareLiveLocation}
-          className="py-2.5 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-xl border border-slate-700 transition-all flex items-center justify-center gap-1.5"
+          className="py-2.5 px-3 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold rounded-xl border border-slate-200 transition-all flex items-center justify-center gap-1.5 shadow-sm"
         >
-          <Share2 className="w-3.5 h-3.5 text-emerald-400" />
+          <Share2 className="w-3.5 h-3.5 text-emerald-600" />
           <span>{copyShareMsg ? (language === 'bn' ? 'কপি হয়েছে!' : 'Copied!') : (language === 'bn' ? 'লাইভ লোকেশন শেয়ার' : 'Share Location')}</span>
         </button>
 
         <button
           onClick={onTriggerSOS}
-          className="py-2.5 px-3 bg-rose-950 hover:bg-rose-900 text-rose-200 text-xs font-bold rounded-xl border border-rose-800 transition-all flex items-center justify-center gap-1.5"
+          className="py-2.5 px-3 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold rounded-xl border border-rose-200 transition-all flex items-center justify-center gap-1.5 shadow-sm"
         >
-          <ShieldAlert className="w-3.5 h-3.5 text-rose-400" />
+          <ShieldAlert className="w-3.5 h-3.5 text-rose-600" />
           <span>{language === 'bn' ? '৯৯৯ জরুরী কল' : '999 SOS'}</span>
         </button>
 
         <button
           onClick={onCancelRide}
-          className="col-span-2 sm:col-span-1 py-2.5 px-3 bg-slate-950 hover:bg-slate-800 text-slate-400 hover:text-slate-200 text-xs font-bold rounded-xl border border-slate-800 transition-all text-center"
+          className="col-span-2 sm:col-span-1 py-2.5 px-3 bg-white hover:bg-slate-50 text-slate-500 hover:text-slate-700 text-xs font-bold rounded-xl border border-slate-200 transition-all text-center shadow-sm"
         >
           {language === 'bn' ? 'রাইড বাতিল' : 'Cancel Ride'}
         </button>

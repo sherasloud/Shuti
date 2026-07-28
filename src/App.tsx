@@ -172,7 +172,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
       
       {/* Top Header */}
       <Header
@@ -302,7 +302,7 @@ export default function App() {
       />
 
       {/* Footer Branding */}
-      <footer className="border-t border-slate-900 bg-slate-950/80 py-4 text-center text-xs text-slate-500">
+      <footer className="border-t border-slate-200 bg-white/80 py-4 text-center text-xs text-slate-400">
         <p>
           Shuti (ছুটি) Ride Sharing Bangladesh • Dhaka • Chittagong • Cox’s Bazar • Sylhet
         </p>
